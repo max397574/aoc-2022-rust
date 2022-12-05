@@ -54,8 +54,6 @@ fn part_1(input: &Supplies) -> String {
     let mut stacks = input.stacks.to_owned();
     for instruction in input.instructions.iter() {
         for _ in 0..instruction.amount {
-            println!("instruction: {:#?}", instruction);
-            println!("stacks: {:#?}", stacks);
             let top = stacks[instruction.from - 1].pop().unwrap();
             stacks[instruction.to - 1].push(top);
         }
@@ -70,16 +68,10 @@ fn part_1(input: &Supplies) -> String {
 #[aoc(day5, part2)]
 fn part_2(input: &Supplies) -> String {
     let mut stacks = input.stacks.to_owned();
-    let mut stack_to_move = vec![];
     for instruction in input.instructions.iter() {
-        for _ in 0..instruction.amount {
-            let top = stacks[instruction.from - 1].pop().unwrap();
-            stack_to_move.push(top);
-        }
-        for _ in 0..instruction.amount {
-            let top = stack_to_move.pop().unwrap();
-            stacks[instruction.to - 1].push(top);
-        }
+        let index = stacks[instruction.from - 1].len() - instruction.amount;
+        let top = stacks[instruction.from - 1].split_off(index);
+        stacks[instruction.to - 1].extend(top);
     }
     let mut top_crates = vec![];
     for stack in stacks.iter_mut() {
