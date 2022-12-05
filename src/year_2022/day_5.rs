@@ -14,12 +14,7 @@ struct Supplies {
 fn generator(input: &str) -> Supplies {
     let (stacks_raw, instructions_raw) = input.split_once("\n\n").unwrap();
     let mut stacks = vec![];
-    let mut first = true;
-    for line in stacks_raw.lines().rev() {
-        if first {
-            first = false;
-            continue;
-        }
+    for line in stacks_raw.lines().rev().skip(1) {
         let bytes = line.as_bytes();
         let count = (bytes.len() + 1) / 4;
         if stacks.len() < count {
