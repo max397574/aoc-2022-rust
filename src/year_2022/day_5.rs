@@ -1,3 +1,4 @@
+#[derive(Debug)]
 struct Instruction {
     from: usize,
     to: usize,
@@ -53,6 +54,8 @@ fn part_1(input: &Supplies) -> String {
     let mut stacks = input.stacks.to_owned();
     for instruction in input.instructions.iter() {
         for _ in 0..instruction.amount {
+            println!("instruction: {:#?}", instruction);
+            println!("stacks: {:#?}", stacks);
             let top = stacks[instruction.from - 1].pop().unwrap();
             stacks[instruction.to - 1].push(top);
         }
@@ -83,4 +86,20 @@ fn part_2(input: &Supplies) -> String {
         top_crates.push(stack.pop().unwrap());
     }
     String::from_utf8(top_crates).unwrap()
+}
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn part1() {
+        let input = generator("    [D]    \n[N] [C]    \n[Z] [M] [P]\n 1   2   3 \n\nmove 1 from 2 to 1\nmove 3 from 1 to 3\nmove 2 from 2 to 1\n move 1 from 1 to 2\n");
+        assert_eq!(part_1(&input), String::from("CMZ"));
+    }
+
+    #[test]
+    fn part2() {
+        let input = generator("    [D]    \n[N] [C]    \n[Z] [M] [P]\n 1   2   3 \n\nmove 1 from 2 to 1\nmove 3 from 1 to 3\nmove 2 from 2 to 1\n move 1 from 1 to 2\n");
+        assert_eq!(part_2(&input), String::from("MCD"));
+    }
 }
