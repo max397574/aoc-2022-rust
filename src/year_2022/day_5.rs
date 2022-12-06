@@ -74,6 +74,7 @@ fn part_2(input: &Supplies) -> String {
     }
     String::from_utf8(top_crates).unwrap()
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
