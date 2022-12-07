@@ -39,7 +39,7 @@ fn entry(input: &str) -> usize {
         }
     }
     let mut sum = 0;
-    for (dir, size) in dir_sizes {
+    for (_, size) in dir_sizes {
         if size <= 100000 {
             sum += size
         }
