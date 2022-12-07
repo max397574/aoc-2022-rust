@@ -36,13 +36,7 @@ fn generator(input: &str) -> HashMap<String, usize> {
 
 #[aoc(day7, part1)]
 fn part_1(input: &HashMap<String, usize>) -> usize {
-    let mut sum = 0;
-    for size in input.values() {
-        if size <= &100000 {
-            sum += size
-        }
-    }
-    sum
+    input.values().filter(|x| x<=&&100000).sum()
 }
 
 #[aoc(day7, part2)]
