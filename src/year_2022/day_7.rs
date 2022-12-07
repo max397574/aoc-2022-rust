@@ -19,18 +19,10 @@ fn entry(input: &str) -> usize {
             ["$", "ls"] => {}
             ["dir", _] => {}
             [size, _] => {
-                let mut dir_name = String::from("");
+                let mut dir_name = String::from("/");
                 for dir in cwd.iter() {
-                    if !dir.is_empty() && dir_name != "/" {
-                        dir_name.push('/');
-                    }
+                    dir_name.push('/');
                     dir_name.push_str(dir);
-                    if cwd == [""] {
-                        dir_name = String::from("/")
-                    }
-                    if dir_name.is_empty() {
-                        dir_name = String::from("/")
-                    }
                     if !dir_sizes.contains_key(&dir_name) {
                         dir_sizes.insert(dir_name.clone(), size.parse::<usize>().unwrap());
                     } else {
@@ -48,7 +40,6 @@ fn entry(input: &str) -> usize {
     }
     let mut sum = 0;
     for (dir, size) in dir_sizes {
-        println!("{dir}:{size}");
         if size <= 100000 {
             sum += size
         }
