@@ -1,7 +1,6 @@
 use std::collections::HashMap;
-
-#[aoc(day7, part1)]
-fn entry(input: &str) -> usize {
+#[aoc_generator(day7)]
+fn generator(input: &str) -> HashMap<String, usize> {
     let lines = input.split('\n');
     let mut cwd: Vec<String> = Vec::new();
     let mut dir_sizes = HashMap::new();
@@ -32,9 +31,14 @@ fn entry(input: &str) -> usize {
             }
         }
     }
+    dir_sizes
+}
+
+#[aoc(day7, part1)]
+fn part_1(input: &HashMap<String, usize>) -> usize {
     let mut sum = 0;
-    for (_, size) in dir_sizes {
-        if size <= 100000 {
+    for size in input.values() {
+        if size <= &100000 {
             sum += size
         }
     }
