@@ -2,6 +2,7 @@
 fn part_1(input: &str) -> usize {
     let mut last = vec![];
     let mut count = 0;
+    // TODO: rewrite with std::slice::Windows
     for char in input.bytes() {
         if last.len() < 4 {
             last.push(char)
@@ -27,6 +28,7 @@ fn part_1(input: &str) -> usize {
 fn part_2(input: &str) -> usize {
     let mut last = vec![];
     let mut count = 0;
+    // TODO: rewrite with std::slice::Windows
     for char in input.bytes() {
         if last.len() < 14 {
             last.push(char)
