@@ -1,7 +1,7 @@
 local curdir = ""
 local files = {}
 local dirs = {}
-local input = io.open("day7_input.txt")
+local input = io.open("input/2022/day7.txt")
 local lines = input and input:lines()
 local line_table = {}
 for line in lines do
