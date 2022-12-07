@@ -44,3 +44,16 @@ fn part_1(input: &HashMap<String, usize>) -> usize {
     }
     sum
 }
+
+#[aoc(day7, part2)]
+fn part_2(input: &HashMap<String, usize>) -> usize {
+    let needed = 40000000;
+    let cur = input.get("//").unwrap();
+    let mut min = 50000000;
+    for &size in input.values() {
+        if size >= cur - needed && size < min {
+            min = size;
+        }
+    }
+    min
+}
