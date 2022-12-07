@@ -23,14 +23,8 @@ fn entry(input: &str) -> usize {
                 for dir in cwd.iter() {
                     dir_name.push('/');
                     dir_name.push_str(dir);
-                    if !dir_sizes.contains_key(&dir_name) {
-                        dir_sizes.insert(dir_name.clone(), size.parse::<usize>().unwrap());
-                    } else {
-                        dir_sizes.insert(
-                            dir_name.clone(),
-                            dir_sizes.get(&dir_name).unwrap() + size.parse::<usize>().unwrap(),
-                        );
-                    }
+                    let entry = dir_sizes.entry(dir_name.clone()).or_insert(0);
+                    *entry += size.parse::<usize>().unwrap();
                 }
             }
             _ => {
