@@ -1,4 +1,8 @@
-// https://github.com/orlp/aoc2022/blob/master/src/bin/day08_v2.rs
+// https://github.com/orlp/aoc2022/blob/17c1c84f89715afd0e3b8a229da44567f14b3397/src/bin/day08_v2.rs
+// scan each row in one pass in the same order you are 'looking' and keep a stack of unblocked trees
+// in reverse sorted order of height, then when you meet a higher/equal tree you can instantly find
+// out which trees are blocked, and pop them from the stack. This way the stack stays in reverse
+// sorted order automatically, without having to sort.
 #[aoc(day8, part1)]
 fn part_1(input: &str) -> usize {
     let cells = input
