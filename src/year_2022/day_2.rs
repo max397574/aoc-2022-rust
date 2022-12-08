@@ -3,35 +3,23 @@ fn part_1(input: &str) -> usize {
     let lines = input.split('\n');
     let mut score = 0;
     for line in lines {
-        match line {
-            "A X" => {
-                score += 4;
-            }
-            "A Y" => {
-                score += 8;
-            }
-            "A Z" => {
-                score += 3;
-            }
-            "B X" => {
-                score += 1;
-            }
-            "B Y" => {
-                score += 5;
-            }
-            "B Z" => {
-                score += 9;
-            }
-            "C X" => {
-                score += 7;
-            }
-            "C Y" => {
-                score += 2;
-            }
-            "C Z" => {
-                score += 6;
-            }
-            _ => {}
+        let (opponent, player) = match line {
+            "A X" => (1, 1),
+            "A Y" => (1, 2),
+            "A Z" => (1, 3),
+            "B X" => (2, 1),
+            "B Y" => (2, 2),
+            "B Z" => (2, 3),
+            "C X" => (3, 1),
+            "C Y" => (3, 2),
+            "C Z" => (3, 3),
+            _ => (0, 0),
+        };
+        score += player;
+        if opponent == player {
+            score += 3;
+        } else if (player - opponent) == 1 || (player == 1 && opponent == 3) {
+            score += 6;
         }
     }
     score
@@ -42,35 +30,35 @@ fn part_2(input: &str) -> usize {
     let lines = input.split('\n');
     let mut score = 0;
     for line in lines {
-        match line {
-            "A X" => {
+        let (opponent, result) = match line {
+            "A X" => (1, 1),
+            "A Y" => (1, 2),
+            "A Z" => (1, 3),
+            "B X" => (2, 1),
+            "B Y" => (2, 2),
+            "B Z" => (2, 3),
+            "C X" => (3, 1),
+            "C Y" => (3, 2),
+            "C Z" => (3, 3),
+            _ => (0, 0),
+        };
+        score += (result - 1) * 3;
+        // you have to loose
+        if result == 1 {
+            if opponent == 1 {
                 score += 3;
+            } else {
+                score += opponent - 1;
             }
-            "A Y" => {
-                score += 4;
-            }
-            "A Z" => {
-                score += 8;
-            }
-            "B X" => {
-                score += 1;
-            }
-            "B Y" => {
-                score += 5;
-            }
-            "B Z" => {
-                score += 9;
-            }
-            "C X" => {
-                score += 2;
-            }
-            "C Y" => {
-                score += 6;
-            }
-            "C Z" => {
-                score += 7;
-            }
-            _ => {}
+        // you have to draw
+        } else if result == 2 {
+            // take same as opponent
+            score += opponent;
+        // you have to win
+        } else if opponent == 3 {
+            score += 1;
+        } else {
+            score += opponent + 1;
         }
     }
     score
