@@ -1,5 +1,47 @@
+// use std::collections::HashMap;
 #[aoc(day2, part1)]
 fn part_1(input: &str) -> i32 {
+    // Day 2 - Part 1 : 13005
+    //         generator: 252ns,
+    //         runner: 74.531µs
+    // let lines = input.split('\n');
+    // let mut score = 0;
+    // for line in lines {
+    //     match line {
+    //         "A X" => {
+    //             score += 4;
+    //         }
+    //         "A Y" => {
+    //             score += 8;
+    //         }
+    //         "A Z" => {
+    //             score += 3;
+    //         }
+    //         "B X" => {
+    //             score += 1;
+    //         }
+    //         "B Y" => {
+    //             score += 5;
+    //         }
+    //         "B Z" => {
+    //             score += 9;
+    //         }
+    //         "C X" => {
+    //             score += 7;
+    //         }
+    //         "C Y" => {
+    //             score += 2;
+    //         }
+    //         "C Z" => {
+    //             score += 6;
+    //         }
+    //         _ => {}
+    //     }
+    // }
+
+    // Day 2 - Part 1 : 13005
+    //         generator: 16.233µs,
+    //         runner: 228.854µs
     let lines = input.split('\n');
     let mut score = 0;
     for line in lines {
