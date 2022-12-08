@@ -1,6 +1,4 @@
-// #[aoc_generator(day8)]
-// fn generator(input: &str) -> _ {}
-
+// https://github.com/orlp/aoc2022/blob/master/src/bin/day08_v2.rs
 #[aoc(day8, part1)]
 fn part_1(input: &str) -> usize {
     let cells = input
