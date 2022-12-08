@@ -1,9 +1,9 @@
 #[aoc(day2, part1)]
-fn part_1(input: &str) -> usize {
+fn part_1(input: &str) -> i32 {
     let lines = input.split('\n');
     let mut score = 0;
     for line in lines {
-        let (opponent, player) = match line {
+        let (opponent, player): (i32, i32) = match line {
             "A X" => (1, 1),
             "A Y" => (1, 2),
             "A Z" => (1, 3),
@@ -62,4 +62,20 @@ fn part_2(input: &str) -> usize {
         }
     }
     score
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    const INPUT: &str = "A Y\nB X\nC Z";
+
+    #[test]
+    fn part1() {
+        assert_eq!(part_1(INPUT), 15);
+    }
+
+    #[test]
+    fn part2() {
+        assert_eq!(part_2(INPUT), 12);
+    }
 }
