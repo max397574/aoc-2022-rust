@@ -86,6 +86,73 @@ fn part_1(input: &str) -> usize {
     visible
 }
 
+// trees on the edge don't have to be considered since at least one score is 0
+#[aoc(day8, part2)]
+fn part_2(input: &str) -> usize {
+    let cells = input
+        .split('\n')
+        .map(|row| {
+            row.chars()
+                .map(|byte| byte.to_digit(10).unwrap() as i16)
+                .collect::<Vec<i16>>()
+        })
+        .collect::<Vec<Vec<i16>>>();
+    let len = cells.len();
+    let row_len = cells[0].len();
+    let mut maximum = 0;
+    for i in 1..len - 1 {
+        for j in 1..row_len - 1 {
+            let height = cells[i][j];
+            // above
+            let mut i2 = i;
+            let mut j2 = j;
+            let mut right = 0;
+            let mut left = 0;
+            let mut above = 0;
+            let mut below = 0;
+            // above
+            while i2 > 0 {
+                i2 -= 1;
+                above += 1;
+                if cells[i2][j] >= height {
+                    i2 = 0;
+                }
+            }
+            i2 = i;
+            // below
+            while i2 < len - 1 {
+                i2 += 1;
+                below += 1;
+                if cells[i2][j] >= height {
+                    i2 = len;
+                }
+            }
+            // left
+            while j2 > 0 {
+                j2 -= 1;
+                left += 1;
+                if cells[i][j2] >= height {
+                    j2 = 0;
+                }
+            }
+            j2 = j;
+            // right
+            while j2 < row_len - 1 {
+                j2 += 1;
+                right += 1;
+                if cells[i][j2] >= height {
+                    j2 = row_len;
+                }
+            }
+            if (left * right * above * below) > maximum {
+                maximum = left * right * above * below;
+            }
+        }
+    }
+
+    maximum
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -94,5 +161,10 @@ mod tests {
     #[test]
     fn part1() {
         assert_eq!(part_1(INPUT), 21);
+    }
+
+    #[test]
+    fn part2() {
+        assert_eq!(part_2(INPUT), 8);
     }
 }
