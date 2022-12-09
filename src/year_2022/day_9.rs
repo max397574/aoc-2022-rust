@@ -1,66 +1,6 @@
 use std::collections::HashMap;
 
-#[aoc(day9, part1)]
-fn part_1(input: &str) -> usize {
-    let mut positions = Vec::new();
-    positions.push((0, 0));
-    let mut hx: i32 = 0;
-    let mut hy: i32 = 0;
-    let mut tx: i32 = 0;
-    let mut ty: i32 = 0;
-    for line in input.split('\n') {
-        let [direction,amount]=line.split_whitespace().collect::<Vec<_>>()[..] else {unreachable!()};
-        for _ in 0..amount.parse().unwrap() {
-            match direction {
-                "U" => hy += 1,
-                "D" => hy -= 1,
-                "R" => hx += 1,
-                "L" => hx -= 1,
-                _ => unreachable!(),
-            }
-            if (ty - hy).abs().max((tx - hx).abs()) <= 1 {
-                continue;
-            }
-            if tx == hx && ty < hy {
-                ty += 1;
-            }
-            if tx == hx && ty > hy {
-                ty -= 1;
-            }
-            if ty == hy && tx < hx {
-                tx += 1;
-            }
-            if ty == hy && tx > hx {
-                tx -= 1;
-            }
-            if tx < hx && ty < hy {
-                tx += 1;
-                ty += 1;
-            }
-            if tx < hx && ty > hy {
-                tx += 1;
-                ty -= 1;
-            }
-            if tx > hx && ty < hy {
-                tx -= 1;
-                ty += 1;
-            }
-            if tx > hx && ty > hy {
-                tx -= 1;
-                ty -= 1;
-            }
-            if !positions.contains(&(tx, ty)) {
-                positions.push((tx, ty));
-            }
-        }
-    }
-    positions.len()
-}
-
 fn catch_up(mut tx: i32, mut ty: i32, hx: i32, hy: i32) -> (i32, i32) {
-    if (ty - hy).abs().max((tx - hx).abs()) <= 1 {
-        return (tx, ty);
-    }
     if tx == hx && ty < hy {
         ty += 1;
     }
@@ -92,6 +32,36 @@ fn catch_up(mut tx: i32, mut ty: i32, hx: i32, hy: i32) -> (i32, i32) {
     (tx, ty)
 }
 
+#[aoc(day9, part1)]
+fn part_1(input: &str) -> usize {
+    let mut positions = Vec::new();
+    positions.push((0, 0));
+    let mut hx: i32 = 0;
+    let mut hy: i32 = 0;
+    let mut tx: i32 = 0;
+    let mut ty: i32 = 0;
+    for line in input.split('\n') {
+        let [direction,amount]=line.split_whitespace().collect::<Vec<_>>()[..] else {unreachable!()};
+        for _ in 0..amount.parse().unwrap() {
+            match direction {
+                "U" => hy += 1,
+                "D" => hy -= 1,
+                "R" => hx += 1,
+                "L" => hx -= 1,
+                _ => unreachable!(),
+            }
+            if (ty - hy).abs().max((tx - hx).abs()) <= 1 {
+                continue;
+            }
+            (tx, ty) = catch_up(tx, ty, hx, hy);
+            if !positions.contains(&(tx, ty)) {
+                positions.push((tx, ty));
+            }
+        }
+    }
+    positions.len()
+}
+
 #[aoc(day9, part2)]
 fn part_2(input: &str) -> usize {
     let mut positions = Vec::new();
@@ -119,8 +89,12 @@ fn part_2(input: &str) -> usize {
             for i in 0..9 {
                 (hx, hy) = *tail_positions.get(&i).unwrap();
                 (tx, ty) = *tail_positions.get(&(i + 1)).unwrap();
-                let new_tail = catch_up(tx, ty, hx, hy);
-                tail_positions.insert(i + 1, new_tail);
+                if !((ty - hy).abs().max((tx - hx).abs()) <= 1) {
+                    let new_tail = catch_up(tx, ty, hx, hy);
+                    tail_positions.insert(i + 1, new_tail);
+                } else {
+                    tail_positions.insert(i + 1, (tx, ty));
+                }
             }
             let last_tail = *tail_positions.get(&9).unwrap();
             if !positions.contains(&last_tail) {
