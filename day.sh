@@ -1,15 +1,32 @@
 #!/bin/zsh
-day=$(date +%-d)
-year=$(date +%Y)
-template="#[aoc_generator(day$day)]
-fn generator(input: &str) -> _ {
-}
-#[aoc(day$day, part1)]
-fn entry(input: &_) -> usize {
-    0
-}
-"
-[ -e "./input/$year/day$day.txt" ] || cargo aoc input
+day=$1
+year=2022
+template="#[aoc(day$1, part1)]\n
+fn part_1(input: &str) -> usize {\n
+    0\n
+}\n
+\n
+#[aoc(day$1, part2)]\n
+fn part_2(input: &str) -> usize {\n
+    0\n
+}\n
+\n
+#[cfg(test)]\n
+mod tests {\n
+    use super::*;\n
+    const INPUT: &str = \"\";\n
+\n
+    #[test]\n
+    fn part1() {\n
+        assert_eq!(part_1(INPUT), 0)\n
+    }\n
+\n
+    #[test]\n
+    fn part2() {\n
+        assert_eq!(part_2(INPUT), 0)\n
+    }\n
+}"
+[ -e "./input/$year/day$day.txt" ] || cargo aoc input -d $day -y $year
 [ -e "./src/year_$year/day_$day.rs" ] ||
     (
         echo $template > "./src/year_$year/day_$day.rs" &&
