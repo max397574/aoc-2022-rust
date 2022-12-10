@@ -41,7 +41,7 @@ fn part_2(input: &str) -> String {
     for line in input.lines() {
         match line.split(' ').collect::<Vec<&str>>()[..] {
             ["addx", value] => {
-                if ((cycles % 40) - register - 1).abs() <= 1 {
+                if ((cycles - 1) % 40- register).abs() <= 1{
                     output.push('#');
                 } else {
                     output.push(' ')
@@ -52,7 +52,7 @@ fn part_2(input: &str) -> String {
 
                 to_add = value.parse::<i32>().unwrap();
                 cycles += 1;
-                if ((cycles % 40) - register - 1).abs() <= 1 {
+                if ((cycles - 1) % 40- register).abs() <= 1{
                     output.push('#');
                 } else {
                     output.push(' ')
@@ -65,7 +65,7 @@ fn part_2(input: &str) -> String {
                 register += to_add;
             }
             ["noop"] => {
-                if ((cycles % 40) - register - 1).abs() <= 1 {
+                if ((cycles - 1) % 40- register).abs() <= 1{
                     output.push('#');
                 } else {
                     output.push(' ')
