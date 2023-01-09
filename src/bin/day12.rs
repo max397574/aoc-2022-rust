@@ -1,11 +1,18 @@
-#[aoc(day12, part1)]
 fn part_1(input: &str) -> usize {
     0
 }
 
-#[aoc(day12, part2)]
 fn part_2(input: &str) -> usize {
     0
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day12.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    println!("part1: {}", part_1(&input));
+    println!("part2: {}", part_2(&input));
+    println!("time: {:?}", start.elapsed());
 }
 
 #[cfg(test)]

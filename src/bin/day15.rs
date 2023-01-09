@@ -5,6 +5,7 @@ fn part_1(input: &str) -> usize {
 fn part_2(input: &str) -> usize {
     0
 }
+
 fn main() {
     let input = std::fs::read_to_string("input/day15.txt").unwrap();
     let start = std::time::Instant::now();
@@ -12,6 +13,7 @@ fn main() {
     println!("part2: {}", part_2(&input));
     println!("time: {:?}", start.elapsed());
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;

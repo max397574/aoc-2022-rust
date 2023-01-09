@@ -1,4 +1,3 @@
-#[aoc(day6, part1)]
 fn part_1(input: &str) -> usize {
     let mut last = vec![];
     let mut count = 0;
@@ -24,7 +23,6 @@ fn part_1(input: &str) -> usize {
     return count;
 }
 
-#[aoc(day6, part2)]
 fn part_2(input: &str) -> usize {
     let mut last = vec![];
     let mut count = 0;
@@ -48,4 +46,13 @@ fn part_2(input: &str) -> usize {
         }
     }
     return count;
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day6.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    println!("part1: {}", part_1(&input));
+    println!("part2: {}", part_2(&input));
+    println!("time: {:?}", start.elapsed());
 }

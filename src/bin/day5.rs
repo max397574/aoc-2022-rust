@@ -10,7 +10,6 @@ struct Supplies {
     instructions: Vec<Instruction>,
 }
 
-#[aoc_generator(day5)]
 fn generator(input: &str) -> Supplies {
     let (stacks_raw, instructions_raw) = input.split_once("\n\n").unwrap();
     let mut stacks = vec![];
@@ -44,7 +43,6 @@ fn generator(input: &str) -> Supplies {
     }
 }
 
-#[aoc(day5, part1)]
 fn part_1(input: &Supplies) -> String {
     let mut stacks = input.stacks.to_owned();
     for instruction in input.instructions.iter() {
@@ -60,7 +58,6 @@ fn part_1(input: &Supplies) -> String {
     String::from_utf8(top_crates).unwrap()
 }
 
-#[aoc(day5, part2)]
 fn part_2(input: &Supplies) -> String {
     let mut stacks = input.stacks.to_owned();
     for instruction in input.instructions.iter() {
@@ -73,6 +70,16 @@ fn part_2(input: &Supplies) -> String {
         top_crates.push(stack.pop().unwrap());
     }
     String::from_utf8(top_crates).unwrap()
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day5.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    let supplies = generator(&input);
+    println!("part1: {}", part_1(&supplies));
+    println!("part2: {}", part_2(&supplies));
+    println!("time: {:?}", start.elapsed());
 }
 
 #[cfg(test)]

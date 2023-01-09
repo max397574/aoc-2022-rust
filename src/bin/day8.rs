@@ -3,10 +3,9 @@
 // in reverse sorted order of height, then when you meet a higher/equal tree you can instantly find
 // out which trees are blocked, and pop them from the stack. This way the stack stays in reverse
 // sorted order automatically, without having to sort.
-#[aoc(day8, part1)]
 fn part_1(input: &str) -> usize {
     let cells = input
-        .split('\n')
+        .lines()
         .map(|row| {
             row.chars()
                 .map(|byte| byte.to_digit(10).unwrap() as i16)
@@ -89,10 +88,9 @@ fn part_1(input: &str) -> usize {
 }
 
 // trees on the edge don't have to be considered since at least one score is 0
-#[aoc(day8, part2)]
 fn part_2(input: &str) -> usize {
     let cells = input
-        .split('\n')
+        .lines()
         .map(|row| {
             row.chars()
                 .map(|byte| byte.to_digit(10).unwrap() as i16)
@@ -153,6 +151,15 @@ fn part_2(input: &str) -> usize {
     }
 
     maximum
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day8.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    println!("part1: {}", part_1(&input));
+    println!("part2: {}", part_2(&input));
+    println!("time: {:?}", start.elapsed());
 }
 
 #[cfg(test)]

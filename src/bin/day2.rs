@@ -1,5 +1,5 @@
 fn part_1(input: &str) -> i32 {
-    let lines = input.split('\n');
+    let lines = input.lines();
     let mut score = 0;
     for line in lines {
         let (opponent, player): (i32, i32) = match line {
@@ -25,7 +25,7 @@ fn part_1(input: &str) -> i32 {
 }
 
 fn part_2(input: &str) -> usize {
-    let lines = input.split('\n');
+    let lines = input.lines();
     let mut score = 0;
     for line in lines {
         let (opponent, result) = match line {

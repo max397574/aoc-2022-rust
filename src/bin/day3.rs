@@ -1,6 +1,7 @@
-#[aoc(day3, part1)]
+#![feature(iter_array_chunks)]
+
 fn part_1(input: &str) -> usize {
-    let lines = input.split('\n');
+    let lines = input.lines();
     let mut score = 0;
     for line in lines {
         let mut checked: Vec<char> = vec![];
@@ -23,9 +24,8 @@ fn part_1(input: &str) -> usize {
     }
     score
 }
-#[aoc(day3, part2)]
 fn part_2(input: &str) -> usize {
-    let lines = input.split('\n');
+    let lines = input.lines();
     let mut score = 0;
     for line in lines.array_chunks::<3>() {
         for item in line[0].chars() {
@@ -40,4 +40,13 @@ fn part_2(input: &str) -> usize {
         }
     }
     score
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day3.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    println!("part1: {}", part_1(&input));
+    println!("part2: {}", part_2(&input));
+    println!("time: {:?}", start.elapsed());
 }

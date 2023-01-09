@@ -1,4 +1,3 @@
-#[aoc(day10, part1)]
 fn part_1(input: &str) -> i32 {
     let mut result = 0;
     let mut register = 1;
@@ -32,7 +31,6 @@ fn part_1(input: &str) -> i32 {
     result
 }
 
-#[aoc(day10, part2)]
 fn part_2(input: &str) -> String {
     let mut register: i32 = 1;
     let mut cycles: i32 = 1;
@@ -80,8 +78,16 @@ fn part_2(input: &str) -> String {
             }
         }
     }
-    println!("{output}");
     output
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day10.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    println!("part1: {}", part_1(&input));
+    println!("part2:\n{}", part_2(&input));
+    println!("time: {:?}", start.elapsed());
 }
 
 #[cfg(test)]

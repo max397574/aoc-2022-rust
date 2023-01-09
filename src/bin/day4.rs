@@ -1,8 +1,7 @@
 use regex::Regex;
 
-#[aoc(day4, part1)]
 fn part_1(input: &str) -> usize {
-    let lines = input.split('\n');
+    let lines = input.lines();
     let re = Regex::new(r"(\d+)-(\d+),(\d+)-(\d+)").unwrap();
     let mut amount = 0;
     for line in lines {
@@ -24,9 +23,8 @@ fn part_1(input: &str) -> usize {
     amount
 }
 
-#[aoc(day4, part2)]
 fn part_2(input: &str) -> usize {
-    let lines = input.split('\n');
+    let lines = input.lines();
     let re = Regex::new(r"(\d+)-(\d+),(\d+)-(\d+)").unwrap();
     let mut amount = 0;
     for line in lines {
@@ -44,4 +42,13 @@ fn part_2(input: &str) -> usize {
         }
     }
     amount
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day4.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    println!("part1: {}", part_1(&input));
+    println!("part2: {}", part_2(&input));
+    println!("time: {:?}", start.elapsed());
 }

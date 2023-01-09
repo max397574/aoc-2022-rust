@@ -1,10 +1,9 @@
 use std::collections::HashMap;
-#[aoc_generator(day7)]
+
 fn generator(input: &str) -> HashMap<String, usize> {
-    let lines = input.split('\n');
     let mut cwd: Vec<String> = Vec::new();
     let mut dir_sizes = HashMap::new();
-    for line in lines {
+    for line in input.lines() {
         match line.split(' ').collect::<Vec<&str>>()[..] {
             ["$", "cd", "/"] => {
                 cwd = vec!["".to_string()];
@@ -34,12 +33,10 @@ fn generator(input: &str) -> HashMap<String, usize> {
     dir_sizes
 }
 
-#[aoc(day7, part1)]
 fn part_1(input: &HashMap<String, usize>) -> usize {
-    input.values().filter(|x| x<=&&100000).sum()
+    input.values().filter(|x| x <= &&100000).sum()
 }
 
-#[aoc(day7, part2)]
 fn part_2(input: &HashMap<String, usize>) -> usize {
     let needed = 40000000;
     let cur = input.get("//").unwrap();
@@ -50,4 +47,14 @@ fn part_2(input: &HashMap<String, usize>) -> usize {
         }
     }
     min
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day7.txt").unwrap();
+    let start = std::time::Instant::now();
+    let generated = generator(&input);
+
+    println!("part1: {}", part_1(&generated));
+    println!("part2: {}", part_2(&generated));
+    println!("time: {:?}", start.elapsed());
 }

@@ -32,7 +32,6 @@ fn catch_up(mut tx: i32, mut ty: i32, hx: i32, hy: i32) -> (i32, i32) {
     (tx, ty)
 }
 
-#[aoc(day9, part1)]
 fn part_1(input: &str) -> usize {
     let mut positions = Vec::new();
     positions.push((0, 0));
@@ -40,7 +39,7 @@ fn part_1(input: &str) -> usize {
     let mut hy: i32 = 0;
     let mut tx: i32 = 0;
     let mut ty: i32 = 0;
-    for line in input.split('\n') {
+    for line in input.lines() {
         let [direction,amount]=line.split_whitespace().collect::<Vec<_>>()[..] else {unreachable!()};
         for _ in 0..amount.parse().unwrap() {
             match direction {
@@ -62,7 +61,6 @@ fn part_1(input: &str) -> usize {
     positions.len()
 }
 
-#[aoc(day9, part2)]
 fn part_2(input: &str) -> usize {
     let mut positions = Vec::new();
     positions.push((0, 0));
@@ -74,7 +72,7 @@ fn part_2(input: &str) -> usize {
     for i in 0..10 {
         tail_positions.insert(i, (0, 0));
     }
-    for line in input.split('\n') {
+    for line in input.lines() {
         let [direction,amount]=line.split_whitespace().collect::<Vec<_>>()[..] else {unreachable!()};
         for _ in 0..amount.parse().unwrap() {
             (hx, hy) = *tail_positions.get(&0).unwrap();
@@ -103,6 +101,15 @@ fn part_2(input: &str) -> usize {
         }
     }
     positions.len()
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day9.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    println!("part1: {}", part_1(&input));
+    println!("part2: {}", part_2(&input));
+    println!("time: {:?}", start.elapsed());
 }
 
 #[cfg(test)]
