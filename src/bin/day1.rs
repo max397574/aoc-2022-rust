@@ -1,4 +1,3 @@
-#[aoc(day1, part1)]
 fn part_1(input: &str) -> usize {
     input
         .split("\n\n")
@@ -11,7 +10,6 @@ fn part_1(input: &str) -> usize {
         .unwrap()
 }
 
-#[aoc(day1, part2)]
 fn part_2(input: &str) -> usize {
     let mut sorted = input
         .split("\n\n")
@@ -23,7 +21,16 @@ fn part_2(input: &str) -> usize {
         .collect::<Vec<usize>>();
     sorted.sort();
     let length = sorted.len();
-    sorted.into_iter().skip(length- 3).sum()
+    sorted.into_iter().skip(length - 3).sum()
+}
+
+fn main() {
+    let input = std::fs::read_to_string("input/day1.txt").unwrap();
+    let start = std::time::Instant::now();
+
+    println!("part1: {}", part_1(&input));
+    println!("part2: {}", part_2(&input));
+    println!("time: {:?}", start.elapsed());
 }
 
 #[cfg(test)]

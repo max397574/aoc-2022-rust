@@ -1,15 +1,21 @@
 #!/bin/zsh
 day=$1
 year=2022
-template="#[aoc(day$1, part1)]\n
-fn part_1(input: &str) -> usize {\n
+template="fn part_1(input: &str) -> usize {\n
     0\n
 }\n
 \n
-#[aoc(day$1, part2)]\n
 fn part_2(input: &str) -> usize {\n
     0\n
 }\n
+fn main() {
+    let input = std::fs::read_to_string(\"input/day$day.txt\").unwrap();
+    let start = std::time::Instant::now();
+
+    println!(\"part1: {}\", part_1(&input));
+    println!(\"part2: {}\", part_2(&input));
+    println!(\"time: {:?}\", start.elapsed());
+}
 \n
 #[cfg(test)]\n
 mod tests {\n
@@ -26,11 +32,9 @@ mod tests {\n
         assert_eq!(part_2(INPUT), 0)\n
     }\n
 }"
-[ -e "./input/$year/day$day.txt" ] || cargo aoc input -d $day -y $year
-[ -e "./src/year_$year/day_$day.rs" ] ||
+[ -e "./src/bin/day$day.rs" ] ||
     (
-        echo $template > "./src/year_$year/day_$day.rs" &&
-        echo "mod day_$day;" >> "./src/year_$year/mod.rs"  &&
+        echo $template > "./src/bin/day$day.rs" &&
         echo "Created template file"
     )
 open "https://adventofcode.com/$year/day/$day"
