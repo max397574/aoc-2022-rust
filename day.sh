@@ -1,4 +1,6 @@
 #!/bin/zsh
+
+# curl --cookie "session=xxx" "https://adventofcode.com/2022/day/$1/input"
 day=$1
 year=2022
 template="fn part_1(input: &str) -> usize {\n
