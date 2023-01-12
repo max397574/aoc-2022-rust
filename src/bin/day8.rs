@@ -4,14 +4,7 @@
 // out which trees are blocked, and pop them from the stack. This way the stack stays in reverse
 // sorted order automatically, without having to sort.
 fn part_1(input: &str) -> usize {
-    let cells = input
-        .lines()
-        .map(|row| {
-            row.chars()
-                .map(|byte| byte.to_digit(10).unwrap() as i16)
-                .collect::<Vec<i16>>()
-        })
-        .collect::<Vec<Vec<i16>>>();
+    let cells = aoc::grid(input, |byte| byte.to_digit(10).unwrap() as i16);
     let len = cells.len();
     let row_len = cells[0].len();
     let mut visible = 0;

@@ -1,3 +1,10 @@
+pub fn grid<T>(text_block: &str, callback: impl Fn(char) -> T) -> Vec<Vec<T>> {
+    text_block
+        .lines()
+        .map(|line| line.chars().map(&callback).collect())
+        .collect()
+}
+
 pub fn gcd(a: usize, b: usize) -> usize {
     let mut a = a;
     let mut b = b;
