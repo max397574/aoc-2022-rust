@@ -140,11 +140,11 @@ abdefghi";
 
     #[test]
     fn part1() {
-        assert_eq!(part_1(&get_steps(INPUT)), 0)
+        assert_eq!(part_1(&get_steps(INPUT)), 31)
     }
 
     #[test]
     fn part2() {
-        assert_eq!(part_2(&get_steps(INPUT)), 0)
+        assert_eq!(part_2(&get_steps(INPUT)), 29)
     }
 }
