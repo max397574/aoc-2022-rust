@@ -112,7 +112,7 @@ fn part_2(input: &[Value]) -> usize {
     let divider2 = Value::from("[[6]]");
     input.push(divider1.clone());
     input.push(divider2.clone());
-    input.sort();
+    input.sort_unstable();
     let mut first = 0;
     let mut second = 0;
     for (i, item) in input.iter().enumerate() {
